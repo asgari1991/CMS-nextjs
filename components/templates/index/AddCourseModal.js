@@ -2,33 +2,30 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCashRegister,
-  faFile,
-  faTag,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTag } from "@fortawesome/free-solid-svg-icons";
 import styles from "@/styles/Modal.module.css";
 import { useState } from "react";
-
+import swal from 'sweetalert'
 const AddCourseModal = ({ hideAddCourseModal }) => {
   const [title, setTitle] = useState("");
   const addNewCourse = async (event) => {
-    event.preventDefault()
-    
-  const res= await fetch('/api/courses',{
-    method:'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body:JSON.stringify({title})
-  })
-  if (res.status===201) {
-    console.log("Course created successfully");
-    setTitle('')
-    hideAddCourseModal()
-    
-  }
-  const data=await res.json()
-  
+    event.preventDefault();
+
+    const res = await fetch("/api/courses", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title }),
+    });
+    if (res.status === 201) {
+      swal({
+        title:"دوره با موفقیت اضافه شد",
+        icon:"success",
+        buttons:"اوکی"
+      })
+      setTitle("");
+      hideAddCourseModal();
+    }
+    const data = await res.json();
   };
   return (
     <div className={styles.modal_container} id="add-new-course-modal">

@@ -27,6 +27,10 @@ body {
   width: 85%;
   padding-right: 4rem;
 }
+.swal-footer{
+  display: flex;
+  justify-content: center;
+}
  
 @font-face {
   font-family: 'shabnam';
