@@ -23,7 +23,7 @@ const Course = ({ courses }) => {
         </div>
         <ul className={styles.courses_list}>
           {courses.map((course) => (
-            <CoursesItem title={course.title} image="/images/courses/PWA.jpg" />
+            <CoursesItem key={course._id} {...course} image="/images/courses/PWA.jpg" />
           ))}
         </ul>
       </section>
