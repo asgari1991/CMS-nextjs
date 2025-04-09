@@ -9,7 +9,9 @@ const CoursesItem = ({ title, _id ,image}) => {
   const hideEditModal = () => setShowEditModal(false);
   const hideDeleteModal = () => setShowDeleteModal(false);
   const deleteHandler = async() => {
-    const res =await fetch(`/api/courses/${_id}`);
+    const res =await fetch(`/api/courses/${_id}`,{
+      method:'DELETE'
+    });
     const data=await res.json()
     if(res.status===200){
       setShowDeleteModal(false)
@@ -20,6 +22,26 @@ const CoursesItem = ({ title, _id ,image}) => {
       })
     }
   };
+  const editHandler=async(event,title)=>{
+    event.preventDefault()
+    const res =await fetch(`/api/courses/${_id}`,{
+      method:'PUT',
+      headers:{
+        "Content-Type":"application/json",
+        
+      },
+      body:JSON.stringify({title})
+    });
+    const data=await res.json()
+    if(res.status===200){
+      setShowEditModal(false)
+      swal({
+        title:"دوره مورد نظر با موفقیت بروزرسانی شد",
+        icon:"success",
+        buttons:"اوکی"
+      })
+    }
+  }
   return (
     <>
       <li className={styles.courses_item}>
@@ -50,7 +72,7 @@ const CoursesItem = ({ title, _id ,image}) => {
           </a>
         </div>
       </li>
-      {showEditModal && <EditModal hideEditModal={hideEditModal} />}
+      {showEditModal && <EditModal hideEditModal={hideEditModal} editHandler={editHandler} />}
       {showDeleteModal && (
         <DeleteModal
           hideDeleteModal={hideDeleteModal}
