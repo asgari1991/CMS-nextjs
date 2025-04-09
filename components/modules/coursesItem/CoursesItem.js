@@ -40,6 +40,7 @@ const CoursesItem = ({ title, _id ,image}) => {
         icon:"success",
         buttons:"اوکی"
       })
+      
     }
   }
   return (
